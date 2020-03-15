@@ -32,4 +32,27 @@ public class UserService {
         }
     }
 
+    /**
+     * Validates password string
+     * @param password the password to validate
+     * @return true if the password is valid else false
+     */
+    public boolean validatePassword(String password) {
+        int countNumbers = 0;
+        int countChars = 0;
+        int countSpecialChars = 0;
+        for (int i = 0; i < password.length(); i++) {
+            char ch = password.charAt(i);
+            if (ch >= '0' && ch <= '9') {
+                countNumbers++;
+            } else if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
+                countChars++;
+            } else {
+                countSpecialChars++;
+            }
+        }
+        boolean validPassword = (countChars > 0 && countNumbers > 0 && countSpecialChars > 0);
+        return  validPassword;
+    }
+
 }
