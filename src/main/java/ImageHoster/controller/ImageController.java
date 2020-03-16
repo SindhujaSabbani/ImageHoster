@@ -1,6 +1,5 @@
 package ImageHoster.controller;
 
-import ImageHoster.model.Comment;
 import ImageHoster.model.Image;
 import ImageHoster.model.Tag;
 import ImageHoster.model.User;
@@ -176,32 +175,6 @@ public class ImageController {
         }
     }
 
-
-    /**
-     * Controller method is called when a user comments on an image.
-     * @param imageId id of the image
-     * @param imageTitle title of the image
-     * @param comment comment the user made
-     * @param session
-     * @return
-     */
-    @RequestMapping(value = "/image/{imageId}/{imageTitle}/comments", method = RequestMethod.POST)
-    public String createComment(@PathVariable(name = "imageId") Integer imageId,
-                                @PathVariable(name = "imageTitle") String imageTitle,
-                                @RequestParam(name = "comment") String comment, HttpSession session) {
-
-
-        Comment newComment = new Comment();
-        Image image = imageService.getImage(imageId);
-        newComment.setImage(image);
-        User user = (User) session.getAttribute("loggeduser");
-        newComment.setUser(user);
-        newComment.setText(comment);
-        newComment.setCreatedDate(new Date());
-        commentService.createComment(newComment);
-
-        return "redirect:/images/" + imageId + "/" + imageTitle;
-    }
 
 
     //This method converts the image to Base64 format
